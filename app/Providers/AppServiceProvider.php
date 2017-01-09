@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment() == 'local') {
+            $services = [
+                Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+                InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
+                InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
+            ];
+            foreach ($services as $service) {
+                $this->app->register($service);
+            }
+        }
     }
 }
